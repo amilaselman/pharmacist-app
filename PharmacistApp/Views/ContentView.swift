@@ -51,7 +51,7 @@ struct ContentView: View {
                         }
                     }
                 }.lineLimit(10)
-        
+        // This is just comment for commit
         // works with categories
 //        HStack{
 //            List {
