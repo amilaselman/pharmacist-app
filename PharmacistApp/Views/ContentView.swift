@@ -28,62 +28,52 @@ struct ContentView: View {
     
     func getCategoryIDfromMedicaments() -> [Int] {
         var arrayOfCategoryID = [Int]()
-        for item in viewModel.medicaments {
-            let categoryID = item.categoryId
-            arrayOfCategoryID = [categoryID]
+        for item in viewModel.categories {
+            //let meds = viewModel.getMedicamentByID(medicamentID: item.id)
+            arrayOfCategoryID = [item.id]
         }
         return arrayOfCategoryID.removeDuplicates()
     }
+
     
     
     var categoryNameView: some View {
-        //                HStack{
-        //                    ForEach (viewModel.categories, id: \.id) { item in
-        //                        ForEach (1..<14)  { id in
-        //                            if let medicament = viewModel.getMedicamentByID(medicamentID: 1) {
-        //                                Button {
-        //                                    print(item.mark)
-        //                                    viewModel.searchByCategory(id: item.id)
-        //                                } label: {
-        //                                    Text("\(item.mark)")
-        //                                }
-        //                            }
-        //                        }
-        //                    }
-        //                }.lineLimit(10)
+        //works  just with categories
+        HStack{
+            let itemId = getCategoryIDfromMedicaments()// [Int]
+              ForEach (viewModel.categories, id: \.id) { item in
+                if (viewModel.getMedicamentByID(medicamentID: item.id ) != nil) {
+                  Button {
+                    print(item.mark)
+                    viewModel.searchByCategory(id: item.id)
+                  } label: {
+                    Text("\(item.mark)")
+                  }.buttonStyle(BlueButton())
+                }
+              }
+            }
+       
         // This is just comment for commit
         // Another line of comment added
-        // works with categories
-        HStack{
-            List {
-                let itemID = getCategoryIDfromMedicaments()
-                ForEach (viewModel.categories, id: \.id) { item in
-                    if itemID != [] {
-                        Button {
-                            print(item.mark)
-                            print(itemID)
-                            viewModel.searchByCategory(id: item.id)
-                            print(getCategoryIDfromMedicaments())
-                        } label: {
-                            Text("\(item.mark)")
-                        }
-                    }
-                }
-            }
-        }.lineLimit(10)
         
+//        HStack{
+//            List {
+//                let itemID = getCategoryIDfromMedicaments()
+//                ForEach (viewModel.categories, id: \.id) { item in
+//                    if itemID != [] {
+//                        Button {
+//                            print(item.mark)
+//                            print(itemID)
+//                            viewModel.searchByCategory(id: item.id)
+//                            print(getCategoryIDfromMedicaments())
+//                        } label: {
+//                            Text("\(item.mark)")
+//                        }.buttonStyle(BlueButton())
+//                    }
+//                }
+//            }
+//        }
         
-        
-        
-        //                ScrollView(.horizontal){
-        //                    HStack{
-        //                        ForEach (viewModel.medicaments, id: \.categoryId) { item in
-        //                            Button(item.atc) {
-        //                                viewModel.searchByCategory(id: item.categoryId)
-        //                            }.buttonStyle(BlueButton())
-        //                        }
-        //                    }
-        //                }
     }//categoryNameView ends here
     
     
