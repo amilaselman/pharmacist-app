@@ -37,42 +37,40 @@ struct ContentView: View {
     
     
     var categoryNameView: some View {
-                HStack{
-                    ForEach (viewModel.categories, id: \.id) { item in
-                        ForEach (1..<14)  { id in
-                            if let medicament = viewModel.getMedicamentByID(medicamentID: 1) {
-                                Button {
-                                    print(item.mark)
-                                    viewModel.searchByCategory(id: item.id)
-                                } label: {
-                                    Text("\(item.mark)")
-                                }
-                            }
-                        }
-                    }
-                }.lineLimit(10)
+        //                HStack{
+        //                    ForEach (viewModel.categories, id: \.id) { item in
+        //                        ForEach (1..<14)  { id in
+        //                            if let medicament = viewModel.getMedicamentByID(medicamentID: 1) {
+        //                                Button {
+        //                                    print(item.mark)
+        //                                    viewModel.searchByCategory(id: item.id)
+        //                                } label: {
+        //                                    Text("\(item.mark)")
+        //                                }
+        //                            }
+        //                        }
+        //                    }
+        //                }.lineLimit(10)
         // This is just comment for commit
         // Another line of comment added
         // works with categories
-//        HStack{
-//            List {
-//
-//                let itemID = getCategoryIDfromMedicaments()
-//                ForEach (viewModel.categories, id: \.id) { item in
-//                    if itemID != nil {
-//                        Button {
-//                            print(item.mark)
-//                            print(itemID)
-//                            viewModel.searchByCategory(id: item.id)
-//                            print(getCategoryIDfromMedicaments())
-//                        } label: {
-//                            Text("\(item.mark)")
-//                        }
-//                    }
-//                }
-//            }.listStyle(.insetGrouped)
-//
-//        }.lineLimit(10)
+        HStack{
+            List {
+                let itemID = getCategoryIDfromMedicaments()
+                ForEach (viewModel.categories, id: \.id) { item in
+                    if itemID != [] {
+                        Button {
+                            print(item.mark)
+                            print(itemID)
+                            viewModel.searchByCategory(id: item.id)
+                            print(getCategoryIDfromMedicaments())
+                        } label: {
+                            Text("\(item.mark)")
+                        }
+                    }
+                }
+            }
+        }.lineLimit(10)
         
         
         

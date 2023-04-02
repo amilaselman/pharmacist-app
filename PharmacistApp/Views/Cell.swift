@@ -62,4 +62,3 @@ struct Cell_Previews: PreviewProvider {
                   Medication (id: 31, name: "Farin", atc: "B01AA03", shortDescription: "Lijecenje...", description: "Lijecenje tromboza vena....", categoryId: 2, activeSubstanceValue: 0, activeSubstanceSelectedQuantity: 0 , minimumDailyDose: 0))
     }
 }
-// Comment added at the EOF
