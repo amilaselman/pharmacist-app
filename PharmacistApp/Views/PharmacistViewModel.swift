@@ -10,9 +10,10 @@ import Foundation
 class PharmacistViewModel: ObservableObject {
     @Published var categories: [Category] = []
     @Published var medicaments: [Medication] = []
+    @Published var medicamentsFiltered: [Medication] = []
     var allMedicaments = [Medication]()
     
-   
+    
     private let categoriesManager: CategoryManager
     private let medicamentsManager: MedicationManager
     
@@ -34,6 +35,7 @@ class PharmacistViewModel: ObservableObject {
         medicamentsManager.fetchData{ medicaments in
             self.medicaments = medicaments
             self.allMedicaments = medicaments
+            self.medicamentsFiltered = medicaments
         }
     }
     
@@ -52,16 +54,26 @@ class PharmacistViewModel: ObservableObject {
     func searchByCategory(id: Int) {
         // contains() or starts(with:)
         if id == 0 {
-            medicaments = allMedicaments
+            medicamentsFiltered = allMedicaments
         } else {
-            medicaments = medicaments.filter({$0.categoryId == id})
+            medicamentsFiltered = medicaments.filter({$0.categoryId == id})
         }
     }
+    
+    func isCategoryEmpty(id: Int) -> Bool {
+        let filteredMeds: [Medication] = medicaments.filter({$0.categoryId == id})
+        if filteredMeds.count == 0 {
+            return true
+        } else {
+            return false
+        }
+    }
+    
     func searchByName(medicationName: String)  {
         if medicationName.isEmpty {
-            medicaments = allMedicaments
+            medicamentsFiltered = allMedicaments
         } else {
-            medicaments = medicaments.filter({$0.name.contains(medicationName)})
+            medicamentsFiltered = medicaments.filter({$0.name.contains(medicationName)})
         }
     }
 }

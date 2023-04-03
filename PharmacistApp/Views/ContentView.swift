@@ -26,59 +26,35 @@ struct ContentView: View {
         }
     }
     
-    func getCategoryIDfromMedicaments() -> [Int] {
-        var arrayOfCategoryID = [Int]()
-        for item in viewModel.categories {
-            //let meds = viewModel.getMedicamentByID(medicamentID: item.id)
-            arrayOfCategoryID = [item.id]
-        }
-        return arrayOfCategoryID.removeDuplicates()
-    }
-
-    
+    //    func getCategoryIDfromMedicaments() -> [Int] {
+    //        var arrayOfIDs = [Int]()
+    //        for item in viewModel.medicaments {
+    //            let meds = viewModel.getMedicamentByID(medicamentID: item.categoryId)
+    //            arrayOfIDs = [item.categoryId]
+    //            //return arrayOfIDs.removeDuplicates()
+    //        }
+    //        return arrayOfIDs.removeDuplicates()
+    //    }
+    //
     
     var categoryNameView: some View {
-        //works  just with categories
         HStack{
-            let itemId = getCategoryIDfromMedicaments()// [Int]
-              ForEach (viewModel.categories, id: \.id) { item in
-                if (viewModel.getMedicamentByID(medicamentID: item.id ) != nil) {
-                  Button {
-                    print(item.mark)
-                    viewModel.searchByCategory(id: item.id)
-                  } label: {
-                    Text("\(item.mark)")
-                  }.buttonStyle(BlueButton())
+            ForEach(viewModel.categories, id: \.id) { item in
+                if (!viewModel.isCategoryEmpty(id: item.id)) {
+                    Button {
+                        print(item.mark)
+                        viewModel.searchByCategory(id: item.id)
+                    } label: {
+                        Text("\(item.mark)")
+                    }.buttonStyle(BlueButton())
                 }
-              }
             }
-       
-        // This is just comment for commit
-        // Another line of comment added
-        
-//        HStack{
-//            List {
-//                let itemID = getCategoryIDfromMedicaments()
-//                ForEach (viewModel.categories, id: \.id) { item in
-//                    if itemID != [] {
-//                        Button {
-//                            print(item.mark)
-//                            print(itemID)
-//                            viewModel.searchByCategory(id: item.id)
-//                            print(getCategoryIDfromMedicaments())
-//                        } label: {
-//                            Text("\(item.mark)")
-//                        }.buttonStyle(BlueButton())
-//                    }
-//                }
-//            }
-//        }
-        
+        }
     }//categoryNameView ends here
     
     
     var contentView: some View {
-        List (viewModel.medicaments, id: \.id) { item in
+        List (viewModel.medicamentsFiltered, id: \.id) { item in
             if let category = viewModel.getCategoryByID(categoryID: item.categoryId) {
                 let details = Details(categories: category, medicaments: item)
                 let cell = Cell(categories: category, medicaments: item)
@@ -86,7 +62,7 @@ struct ContentView: View {
                     details
                 } label: {
                     cell
-                }.navigationBarTitle("Registar lijekova").navigationBarTitleDisplayMode(.inline)
+                }.navigationBarTitle("Medication registry").navigationBarTitleDisplayMode(.inline)
             }
         }
     }
