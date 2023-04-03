@@ -11,9 +11,6 @@ struct ContentView: View {
     @StateObject var viewModel = PharmacistViewModel()
     @State var path = NavigationPath()
     @State var searchText = ""
-    @State var pickerSelected = ""
-    let setOfATC: Set = ["A02AD", "A02BA", "A01AB09"]
-    let setOfMARK: Set = ["A", "C", "B"]
     
     var body: some View {
         NavigationStack(path: $path) {
